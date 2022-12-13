@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include <string>
 
 #include "project.h"
 #include "app.h"
@@ -8,22 +9,24 @@ using namespace std;
 
 bool run(int argc, char *argv[]) {
 
+    cout << "Programa: " << argv[argc-argc] << " / Versao: " << versao << endl;
+
     if(argc != 4) {
-        usage();
+        usage(argc, argv);
         return false;
     }
 
     string opArg = argv[2];
     if(opArg.length() > 1) {
         cout << endl << "operator should be a single character" << endl;
-        usage();
+        usage(argc, argv);
         return false;
     }
 
     char op=opArg.at(0);
     if(op == 44 || op == 46 || op < 42 || op > 47) {
         cout << endl << "operator not recognized" << endl;
-        usage();
+        usage(argc, argv);
         return false;
     }
 
@@ -57,9 +60,8 @@ bool run(int argc, char *argv[]) {
     return false;
 }
 
-void usage() {
-    cout << endl;
-    cout << "bc arg1 op arg2" << endl;
-    cout << "arg1 and arg2 are the arguments" << endl;
+void usage(int argc, char *argv[]) {
+    cout << endl << argv[argc-argc] << " arg1 op arg2" << endl;
+    cout <<  "arg1 and arg2 are the arguments" << endl;
     cout << "op is an operator, one of + - / or *" << endl;
 }
