@@ -7,6 +7,7 @@ using namespace std;
 extern const string versao = "1.0.0";
 
 int main(int argc, char *argv[]) {
-    while(run(argc,argv));
+    App project(argc, argv);
+    while(project.run());
     return 0;
 }

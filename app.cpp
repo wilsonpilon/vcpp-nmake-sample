@@ -7,31 +7,59 @@
 
 using namespace std;
 
-bool run(int argc, char *argv[]) {
+App::App(int cargc, char *cargv[]) {
+	nome = "App";
+	versao = "1.0.0";
+	argc = cargc;
+	for (int i = 0; i < cargc; i++)
+		argv.push_back(cargv[i]);
+}
+
+void App::setNome(string cnome) {
+	nome = cnome;
+}
+
+void App::setVersao(string cversao) {
+	versao = cversao;
+}
+
+void App::setArgc(int cargc) {
+	argc = cargc;
+}
+
+string App::getNome() {
+	return nome;
+}
+
+string App::getVersao() {
+	return versao;
+}
+
+bool App::run() {
 
     cout << "Programa: " << argv[argc-argc] << " / Versao: " << versao << endl;
 
     if(argc != 4) {
-        usage(argc, argv);
+        usage();
         return false;
     }
 
     string opArg = argv[2];
     if(opArg.length() > 1) {
         cout << endl << "operator should be a single character" << endl;
-        usage(argc, argv);
+        usage();
         return false;
     }
 
     char op=opArg.at(0);
     if(op == 44 || op == 46 || op < 42 || op > 47) {
         cout << endl << "operator not recognized" << endl;
-        usage(argc, argv);
+        usage();
         return false;
     }
 
-    double arg1=atof(argv[1]);
-    double arg2=atof(argv[3]);
+    double arg1=stof(argv[1]);
+    double arg2=stof(argv[3]);
     double result=0;
 
     switch(op) {
@@ -60,8 +88,8 @@ bool run(int argc, char *argv[]) {
     return false;
 }
 
-void usage(int argc, char *argv[]) {
-    cout << endl << argv[argc-argc] << " arg1 op arg2" << endl;
+void App::usage() {
+    cout << endl << argv[0] << " arg1 op arg2" << endl;
     cout <<  "arg1 and arg2 are the arguments" << endl;
     cout << "op is an operator, one of + - / or *" << endl;
 }
